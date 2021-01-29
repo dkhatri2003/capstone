@@ -1,7 +1,12 @@
-Flask==1.1.1
 gunicorn==19.9.0
 numpy>=1.9.2
-scipy>0.15.1
-scikit-learn>=1.4.3
-matplotlib>=1.4.4
-pandas>=0.19
+numpy>=1.18.5
+pandas>=1.1.0
+re>=2.2.1
+nltk>=3.5
+tensorflow>=2.0.0
+imblearn>=0.7.0
+joblib>=0.16.0
+sklearn>=0.23.2
+json>=2.0.9
+flask>=0.10.1
