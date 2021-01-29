@@ -10,7 +10,6 @@ nltk.download('stopwords')
 from string import punctuation
 from nltk.corpus import stopwords
 from tensorflow.keras.preprocessing import text, sequence
-from imblearn.over_sampling import SMOTE
 
 import warnings
 warnings.simplefilter(action='ignore')
@@ -150,17 +149,6 @@ def convert_text2vector(df, var, tokenizer):
     df_array = sequence.pad_sequences(df_array, maxlen=config.NLP_MAX_LENGTH)
     return pd.DataFrame(df_array, index=df.index)
 
-def upsample(df_nlp, df_nonnlp, df_target):
-    df=np.concatenate( (np.array(df_nlp), np.array(df_nonnlp)), axis=1 )
-    upsamples_count=config.UPSAMPLE_COUNT
-    
-    oversample = SMOTE(random_state=config.SEED, sampling_strategy={0:upsamples_count, 1:upsamples_count, 2:upsamples_count, 3:upsamples_count, 4:upsamples_count})
-    df, df_target = oversample.fit_resample(df, df_target)
-    
-    df_nlp=df[:,:config.NLP_MAX_LENGTH]
-    df_nonnlp=df[:,config.NLP_MAX_LENGTH:]
-    return df_nlp, df_nonnlp, df_target
-
 
 def create_embedding_matrix(wv_model, tokenizer, output_path):
     tokenizer=joblib.load(tokenizer)
@@ -177,52 +165,6 @@ def create_embedding_matrix(wv_model, tokenizer, output_path):
     
     joblib.dump(embedding_matrix, output_path)
     return embedding_matrix
-
-# Train Model
-def train_model(df_nlp, df_nonnlp, df_target, df_test_nlp, df_test_nonnlp, df_test_target ,embedding_matrix ,output_path): 
-    
-    # model inputs
-    nlp_input=Input(shape=df_nlp.shape[1])
-    nonnlp_input=Input(shape=df_nonnlp.shape[1])
-    
-    #load embeddings
-    embedding=Embedding(config.NLP_VOCAB_SIZE, output_dim=config.NLP_EMBEDDING_SIZE, 
-                        trainable=False, weights=[embedding_matrix])(nlp_input)
-    
-    # LSTM Layers
-    nlp_out=Bidirectional(LSTM(512, dropout=0.2, recurrent_dropout=0.2, activation='tanh', return_sequences=True))(embedding)
-    nlp_out=LSTM(512, dropout=0.2, recurrent_dropout=0.2, activation='tanh')(nlp_out)
-    
-    # Concat NLP + NONNLP inputs
-    nlp_nonnlp_out=concatenate([nlp_out, nonnlp_input])
-    
-    # Dense layers
-    nlp_nonnlp_out=Dense(512, activation='relu')(nlp_nonnlp_out)
-    nlp_nonnlp_out=Dropout(.2)(nlp_nonnlp_out)
-    nlp_nonnlp_out=Dense(256, activation='relu')(nlp_nonnlp_out)
-    nlp_nonnlp_out=Dropout(.2)(nlp_nonnlp_out) 
-    nlp_nonnlp_out=Flatten()(nlp_nonnlp_out)
-    
-    # Output classes
-    output=Dense(5,activation='softmax')(nlp_nonnlp_out)
-    
-    # Deep Learning Model
-    model=Model(inputs=[nlp_input, nonnlp_input], outputs=[output])
-    # Model Compile
-    model.compile(optimizer=Adam(learning_rate=.001), loss='categorical_crossentropy', metrics=['accuracy'])
-    # Model Train
-    checkpoint = ModelCheckpoint(config.OUTPUT_MODEL_PATH, monitor="val_loss", verbose=1, save_best_only=True, save_weights_only=False)
-    stop = EarlyStopping(monitor="val_loss", patience=7)
-    reduce_lr = ReduceLROnPlateau(monitor="val_loss", factor=0.2, patience=3, min_lr=1e-6, verbose=1)
-
-    model.fit([df_nlp, df_nonnlp], df_target, epochs = config.MODEL_EPOCHS, batch_size=32, verbose = 2, 
-              validation_data=([df_test_nlp, df_test_nonnlp], df_test_target),
-              callbacks=[checkpoint, stop, reduce_lr])
-    
-    # save the model - best model is saved during checkpoint
-    #model.save(config.OUTPUT_MODEL_PATH)
-    
-    return model
 
 
 def predict(data):
