@@ -97,7 +97,7 @@ def train_ordinal_encoder(df, var ,output_path):
 
 def ordinal_encode_features(df, var, encoder):
     encoder = joblib.load(encoder)
-    df[var]=encoder.transform(df[var], , handle_unknown=='ignore')
+    df[var]=encoder.transform(df[var], handle_unknown=='ignore')
     return df[var]
 
 # MinMax Scaler
