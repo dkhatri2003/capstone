@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import json
 
-from flask import Flask, request, jsonify, make_response, Response
+from flask import Flask, request, jsonify, make_response, Response, render_template
 
 
 app = Flask(__name__)
