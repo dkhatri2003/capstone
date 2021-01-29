@@ -90,14 +90,14 @@ def label_encode_features(df, var, encoder):
 
 # Ordinal Encoder
 def train_ordinal_encoder(df, var ,output_path):
-    encoder = OrdinalEncoder()
+    encoder = OrdinalEncoder(handle_unknown='ignore')
     encoder.fit(df[var])
     joblib.dump(encoder, output_path)
     return encoder
 
 def ordinal_encode_features(df, var, encoder):
     encoder = joblib.load(encoder)
-    df[var]=encoder.transform(df[var], handle_unknown='ignore')
+    df[var]=encoder.transform(df[var])
     return df[var]
 
 # MinMax Scaler
