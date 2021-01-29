@@ -142,6 +142,7 @@ def train_tokenizer(df, var, output_path):
     joblib.dump(tokenizer, output_path)
     return tokenizer
 
+
 def convert_text2vector(df, var, tokenizer):
     tokenizer=joblib.load(tokenizer)
     df[var]=df[var].apply(get_clean_text)
