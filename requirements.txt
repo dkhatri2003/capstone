@@ -5,6 +5,6 @@ nltk>=3.5
 tensorflow>=2.0.0
 joblib>=0.16.0
 scipy>0.15.1
-scikit-learn>=1.4.3
+scikit-learn>=0.24.0
 json>=2.0.9
 flask>=0.10.1
