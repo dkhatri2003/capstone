@@ -1,16 +1,16 @@
 # ====   PATHS ===================
 
 PATH_TO_DATASET = "./data/raw/industrial_safety_and_health_database_with_accidents_description.csv"
-OUTPUT_LABELENCODER_PATH = './preprocess/labelencoder.pkl'
-OUTPUT_ORDINALENCODER_PATH = './preprocess/ordinalencoder.pkl'
-OUTPUT_SCALER_PATH = './preprocess/scaler.pkl'
-TOKENIZER_PATH = './preprocess/tokenizer.pkl'
+OUTPUT_LABELENCODER_PATH = './labelencoder.pkl'
+OUTPUT_ORDINALENCODER_PATH = './ordinalencoder.pkl'
+OUTPUT_SCALER_PATH = './scaler.pkl'
+TOKENIZER_PATH = './tokenizer.pkl'
 
-WORD2VEC_MODEL='./embeddings/custom_word2vec_200d.pkl'
-GLOVE_FILE='./embeddings/custom_glove_200d.txt'
-EMBEDDINGMATRIX_MODEL='./preprocess/embedding_matrix.pkl'
+WORD2VEC_MODEL='.custom_word2vec_200d.pkl'
+GLOVE_FILE='./custom_glove_200d.txt'
+EMBEDDINGMATRIX_MODEL='./embedding_matrix.pkl'
 
-OUTPUT_MODEL_PATH = './model/word2vec_dev_model.h5'
+OUTPUT_MODEL_PATH = './word2vec_dev_model.h5'
 
 # ======= PARAMETERS ===============
 
