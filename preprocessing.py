@@ -90,7 +90,7 @@ def label_encode_features(df, var, encoder):
 
 # Ordinal Encoder
 def train_ordinal_encoder(df, var ,output_path):
-    encoder = OrdinalEncoder(handle_unknown='ignore')
+    encoder = OrdinalEncoder()
     encoder.fit(df[var])
     joblib.dump(encoder, output_path)
     return encoder
