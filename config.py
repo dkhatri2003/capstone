@@ -6,7 +6,7 @@ OUTPUT_ORDINALENCODER_PATH = './ordinalencoder.pkl'
 OUTPUT_SCALER_PATH = './scaler.pkl'
 TOKENIZER_PATH = './tokenizer.pkl'
 
-WORD2VEC_MODEL='.custom_word2vec_200d.pkl'
+WORD2VEC_MODEL='./custom_word2vec_200d.pkl'
 GLOVE_FILE='./custom_glove_200d.txt'
 EMBEDDINGMATRIX_MODEL='./embedding_matrix.pkl'
 
