@@ -9,6 +9,11 @@ from flask import Flask, request, jsonify, make_response, Response
 
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
 @app.route('/v1/accident_alert',methods=['POST'])
 def accident_alert():
     
@@ -27,4 +32,4 @@ def accident_alert():
     return 'Hello World!'
 
 if __name__ == "__main__":
-    app.run(host='localhost', port=5000) 
+    app.run(debug=True)
