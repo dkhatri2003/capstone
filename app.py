@@ -25,11 +25,10 @@ def accident_alert():
     
     # Prediction & Response
     #prediction=pp.predict(data)[0]
-    #response={ "Potential Accident Level" : config.TARGET_LEVEL[prediction], 
-                         "Potential Accident Description" : config.TARGET_LEVEL_DESC[prediction]}
+    #response={ "Potential Accident Level" : config.TARGET_LEVEL[prediction], "Potential Accident Description" : config.TARGET_LEVEL_DESC[prediction]}
     
-    #return Response(json.dumps(response),  mimetype='application/json')
-    return 'Hello World!'
+    return Response(json.dumps(response),  mimetype='application/json')
+    #return 'Hello World!'
 
 if __name__ == "__main__":
     app.run(debug=True)
