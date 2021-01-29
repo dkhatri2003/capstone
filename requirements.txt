@@ -1,7 +1,7 @@
 gunicorn==19.9.0
 numpy>=1.18.5
 pandas>=1.1.0
-re>=2.2.1
+re==2.2.1
 nltk>=3.5
 tensorflow>=2.0.0
 imblearn>=0.7.0
