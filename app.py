@@ -1,11 +1,9 @@
 import config
-import preprocessing as pp
-
-import numpy as np
+import preprocess_prod as pp
 import pandas as pd
 import json
 
-from flask import Flask, request, jsonify, make_response, Response, render_template
+from flask import Flask, request, Response, render_template
 from flask_cors import cross_origin
 
 app = Flask(__name__)
@@ -28,7 +26,6 @@ def accident_alert():
     response={ "Potential Accident Level" : config.TARGET_LEVEL[prediction], "Potential Accident Description" : config.TARGET_LEVEL_DESC[prediction]}
     
     return Response(json.dumps(response),  mimetype='application/json')
-    #return 'Hello World!'
 
 # Chatbot API
 @app.route('/v2/accident_alert', methods=['POST'])
@@ -41,10 +38,13 @@ def accident_alert_v2():
     cols=list(data.keys())
     values=[list(data.values())]
     data=pd.DataFrame(values, columns=cols)
-    #df.rename(columns={'Data': 'Date', 'Countries':'Country', 'Genre':'Gender', 'Employee or Third Party':'Employee type'}, inplace=True)
+ 
+    # Prediction & Response
+    prediction=pp.predict(data)[0]    
+    response = 'Potential Accident Level is '+ config.TARGET_LEVEL[prediction] + ' & ' + 'Potential Accident Description: ' + config.TARGET_LEVEL_DESC[prediction]
     
-    res={"fulfillmentText": "Hello Team 4!"}
-    return Response(json.dumps(res),  mimetype='application/json')
+    response={"fulfillmentText": response}
+    return Response(json.dumps(response),  mimetype='application/json')
     
 if __name__ == "__main__":
     app.run(debug=True)

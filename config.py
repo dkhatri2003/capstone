@@ -1,16 +1,16 @@
 # ====   PATHS ===================
 
-PATH_TO_DATASET = "./data/raw/industrial_safety_and_health_database_with_accidents_description.csv"
-OUTPUT_LABELENCODER_PATH = './labelencoder.pkl'
-OUTPUT_ORDINALENCODER_PATH = './ordinalencoder.pkl'
-OUTPUT_SCALER_PATH = './scaler.pkl'
-TOKENIZER_PATH = './tokenizer.pkl'
+PATH_TO_DATASET = "../data/raw/industrial_safety_and_health_database_with_accidents_description.csv"
+OUTPUT_LABELENCODER_PATH = './preprocess/labelencoder.pkl'
+OUTPUT_ORDINALENCODER_PATH = './preprocess/ordinalencoder.pkl'
+OUTPUT_SCALER_PATH = './preprocess/scaler.pkl'
+TOKENIZER_PATH = './preprocess/tokenizer.pkl'
 
-WORD2VEC_MODEL='./custom_word2vec_200d.pkl'
-GLOVE_FILE='./custom_glove_200d.txt'
-EMBEDDINGMATRIX_MODEL='./embedding_matrix.pkl'
+WORD2VEC_MODEL='../embeddings/custom_word2vec_200d.pkl'
+GLOVE_FILE='../embeddings/custom_glove_200d.txt'
+EMBEDDINGMATRIX_MODEL='./preprocess/embedding_matrix.pkl'
 
-OUTPUT_MODEL_PATH = './word2vec_dev_model.h5'
+OUTPUT_MODEL_PATH = './model/word2vec_dev_model.h5'
 
 # ======= PARAMETERS ===============
 
@@ -37,7 +37,7 @@ TARGET_MAPPINGS = {'I':1, 'II':2, 'III':3, 'IV':4, 'V':5, 'VI':5}
 REF_DATE= '1994,01,01'
 
 
-FREQUENT_LABELS = { 'Critical Risk':['Pressed', 'Pressurized Systems', 'Manual Tools', 'Others',
+FREQUENT_LABELS = { 'CriticalRisk':['Pressed', 'Pressurized Systems', 'Manual Tools', 'Others',
        'Fall prevention (same level)', 'Chemical substances',
        'Liquid Metal', 'Electrical installation', 'Confined space',
        'Pressurized Systems / Chemical Substances',
@@ -55,11 +55,11 @@ DATE_VARIABLE = 'Date'
 
 
 # variables to encode
-CATEGORICAL_ENCODE = ['Country', 'Local', 'Industry Sector',
-                          'Gender', 'Employee type',
+CATEGORICAL_ENCODE = ['Country', 'Local', 'IndustrySector',
+                          'Gender', 'EmployeeType',
                           'Weekday']
                           
-ORDINAL_ENCODE = ['Critical Risk']
+ORDINAL_ENCODE = ['CriticalRisk']
 
 
 TEXT_FEATURE = 'Description'
