@@ -37,7 +37,7 @@ def accident_alert_v2():
     req = request.get_json(silent=True, force=True)
     #result = req.get("queryResult")
     #parameters = result.get("parameters")
-    res={"fulfillmentText": Hello Team 4!}
+    res={"fulfillmentText": "Hello Team 4!"}
     return Response(json.dumps(res),  mimetype='application/json')
     
 if __name__ == "__main__":
