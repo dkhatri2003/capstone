@@ -35,9 +35,10 @@ def accident_alert():
 @cross_origin()
 def accident_alert_v2():   
     req = request.get_json(silent=True, force=True)
-    result = req.get("queryResult")
-    parameters = result.get("parameters")
-    return Response(json.dumps(parameters),  mimetype='application/json')
+    #result = req.get("queryResult")
+    #parameters = result.get("parameters")
+    res={"fulfillmentText": Hello Team 4!}
+    return Response(json.dumps(res),  mimetype='application/json')
     
 if __name__ == "__main__":
     app.run(debug=True)
