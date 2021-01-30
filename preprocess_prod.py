@@ -34,7 +34,7 @@ def limit_target_range(df, target):
 
 def date_feature_creation(df, var):
     # convert Date column to datatime object
-    df['Date'] = pd.to_datetime(df['Date'])
+    df['Date'] = pd.to_datetime(df['Date'], format='%Y-%m-%d')
     df['Month'] = df[var].apply(lambda x : x.month)
     df['Day'] = df[var].apply(lambda x : x.day)
     df['Weekday'] = df[var].apply(lambda x : x.day_name())
