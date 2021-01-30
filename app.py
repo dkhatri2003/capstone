@@ -6,7 +6,7 @@ import pandas as pd
 import json
 
 from flask import Flask, request, jsonify, make_response, Response, render_template
-
+from flask_cors import cross_origin
 
 app = Flask(__name__)
 
@@ -30,5 +30,15 @@ def accident_alert():
     return Response(json.dumps(response),  mimetype='application/json')
     #return 'Hello World!'
 
+# Chatbot API
+@app.route('/v2/accident_alert', methods=['POST'])
+@cross_origin()
+def accident_alert_v2():   
+    req = request.get_json(silent=True, force=True)
+    res = processRequest(req)
+    result = req.get("queryResult")
+    parameters = result.get("parameters")
+    return Response(json.dumps(parameters),  mimetype='application/json')
+    
 if __name__ == "__main__":
     app.run(debug=True)
