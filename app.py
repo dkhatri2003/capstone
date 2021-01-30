@@ -35,8 +35,14 @@ def accident_alert():
 @cross_origin()
 def accident_alert_v2():   
     req = request.get_json(silent=True, force=True)
-    #result = req.get("queryResult")
-    #parameters = result.get("parameters")
+    result = req.get("queryResult")
+    data = result.get("parameters")
+    
+    cols=list(data.keys())
+    values=[list(data.values())]
+    data=pd.DataFrame(values, columns=cols)
+    #df.rename(columns={'Data': 'Date', 'Countries':'Country', 'Genre':'Gender', 'Employee or Third Party':'Employee type'}, inplace=True)
+    
     res={"fulfillmentText": "Hello Team 4!"}
     return Response(json.dumps(res),  mimetype='application/json')
     
