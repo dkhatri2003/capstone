@@ -68,9 +68,9 @@ DROP_FEATURES = ['Date']
 
 
 TARGET = 'Potential Accident Level'
-TARGET_LEVEL={0:'Level I: Minimal', 1:'Level II: Minor', 2: 'Level III: Moderate', 3: 'Level IV: Major', 4: 'Level V: Severe' }
-TARGET_LEVEL_DESC={0:'The impact is too low. Or, employees slightly escaped from the accidents. However, it requires reporting and follow-up actions.', 
-                1:'The impact is low. The employees might have faced a danger and recovered with the first-aid itself.', 
-                2: 'The type of injuries or illness require medical attention. However, the employee can continue the job post medication. So, there is no time loss because of the injury.', 
-                3: 'The injury can cause temporary disability to an employee that results in time loss. It can also involve one or many employees.', 
-                4: 'This type of injury results in permanent disability or even more fatal' }
+TARGET_LEVEL={0:'Level-1', 1:'Level-2', 2: 'Level-3', 3: 'Level-4', 4: 'Level-5' }
+TARGET_LEVEL_DESC={0:'The risk is minimal.', 
+                1:'The risk minor. However, keep a first aid kit with you.', 
+                2: 'You are at moderate risk. Before undertaking this activity, ensure you have sufficient medical support in case of injuries or illness.', 
+                3: 'You are at major risk. The accidents can cause temporary disability.', 
+                4: 'You are at severe risk. This accident can cause permanent disability or more fatal.' }
