@@ -54,6 +54,7 @@ def remove_rare_labels(df, var, frequent_labels):
 def label_encode_features(df, var, encoder):
     encoder = joblib.load(encoder)
     df[var]=df[var].apply(lambda x: encoder[x.name].transform(x))
+    del encoder
     return df[var]
 
 
@@ -61,12 +62,14 @@ def label_encode_features(df, var, encoder):
 def ordinal_encode_features(df, var, encoder):
     encoder = joblib.load(encoder)
     df[var]=encoder.transform(df[var])
+    del encoder
     return df[var]
 
 # MinMax Scaler  
 def scale_features(df, scaler):
     scaler = joblib.load(scaler) # with joblib probably
     df=pd.DataFrame(scaler.transform(df), columns=df.columns, index=df.index)
+    del scaler
     return df
 
 
@@ -94,6 +97,7 @@ def convert_text2vector(df, var, tokenizer):
     df[var]=df[var].apply(get_clean_text)
     df_array = tokenizer.texts_to_sequences(df[var].values)
     df_array = sequence.pad_sequences(df_array, maxlen=config.NLP_MAX_LENGTH)
+    del tokenizer
     return pd.DataFrame(df_array, index=df.index)
 
 
@@ -130,6 +134,7 @@ def predict(data):
   prediction=model.predict([X_nlp, X_nonnlp])
   prediction=np.argmax(prediction, axis=1)
   
+  del model
   return prediction
 
     
