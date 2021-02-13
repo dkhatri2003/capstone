@@ -73,4 +73,4 @@ TARGET_LEVEL_DESC={0:'The risk is minimal.',
                 1:'The risk minor. However, keep a first aid kit with you.', 
                 2: 'You are at moderate risk. Before undertaking this activity, ensure you have sufficient medical support in case of injuries or illness.', 
                 3: 'You are at major risk. The accidents can cause temporary disability.', 
-                4: 'You are at severe risk. This accident can cause permanent disability or more fatal.' }
+                4: 'You are at severe risk. This accident can cause permanent disability or fatal.' }
