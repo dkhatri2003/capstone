@@ -55,7 +55,8 @@ DATE_VARIABLE = 'Date'
 
 
 # variables to encode
-CATEGORICAL_ENCODE = ['Country', 'Local', 'IndustrySector',
+#CATEGORICAL_ENCODE = ['Country', 'Local', 'IndustrySector',
+CATEGORICAL_ENCODE = ['Local', 'IndustrySector',
                           'Gender', 'EmployeeType',
                           'Weekday']
                           

@@ -110,14 +110,14 @@ def predict(data):
   X_nonnlp=data.drop([config.TEXT_FEATURE], axis=1)
   
   ###### Non NLP Data preprocessing ########
-  for var in list(config.FREQUENT_LABELS.keys()):
-    X_nonnlp[var] = remove_rare_labels(X_nonnlp, var, config.FREQUENT_LABELS[var])
+  #for var in list(config.FREQUENT_LABELS.keys()):
+  #  X_nonnlp[var] = remove_rare_labels(X_nonnlp, var, config.FREQUENT_LABELS[var])
   
   # Label Encoder
   X_nonnlp[config.CATEGORICAL_ENCODE]=label_encode_features(X_nonnlp, config.CATEGORICAL_ENCODE, config.OUTPUT_LABELENCODER_PATH)
   
   # Ordinal Encoder
-  X_nonnlp[config.ORDINAL_ENCODE]=ordinal_encode_features(X_nonnlp, config.ORDINAL_ENCODE ,config.OUTPUT_ORDINALENCODER_PATH)
+  #X_nonnlp[config.ORDINAL_ENCODE]=ordinal_encode_features(X_nonnlp, config.ORDINAL_ENCODE ,config.OUTPUT_ORDINALENCODER_PATH)
   
   # Scaler
   X_nonnlp=scale_features(X_nonnlp, config.OUTPUT_SCALER_PATH)
