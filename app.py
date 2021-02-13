@@ -3,8 +3,6 @@ import preprocess_prod as pp
 import pandas as pd
 import json
 
-import gc
-
 from flask import Flask, request, Response, render_template
 from flask_cors import cross_origin
 
@@ -27,8 +25,6 @@ def accident_alert():
     prediction=pp.predict(data)[0]
     response={ "Potential Accident Level" : config.TARGET_LEVEL[prediction], "Potential Accident Description" : config.TARGET_LEVEL_DESC[prediction]}
     
-    gc.collect()
-    
     return Response(json.dumps(response),  mimetype='application/json')
 
 # Chatbot API
@@ -45,11 +41,9 @@ def accident_alert_v2():
  
     # Prediction & Response
     prediction=pp.predict(data)[0]    
-    response = 'Potential Accident Level is '+ config.TARGET_LEVEL[prediction] + ' & ' + 'Potential Accident Description: ' + config.TARGET_LEVEL_DESC[prediction]
+    response = 'Potential Accident Level is '+ config.TARGET_LEVEL[prediction] + ' & ' + 'Potential Accident Description is ' + config.TARGET_LEVEL_DESC[prediction]
     
     response={"fulfillmentText": response}
-    
-    gc.collect()
     return Response(json.dumps(response),  mimetype='application/json')
     
 if __name__ == "__main__":
