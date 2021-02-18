@@ -25,6 +25,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OrdinalEncoder
 
+from tensorflow.keras.layers import Layer
+import tensorflow.keras.backend as K
 
 # Individual pre-processing and training functions
 # ================================================
@@ -100,6 +102,28 @@ def convert_text2vector(df, var, tokenizer):
     del tokenizer
     return pd.DataFrame(df_array, index=df.index)
 
+#Class to define the attention layer
+class attention(Layer):
+    def __init__(self,**kwargs):
+        super(attention,self).__init__(**kwargs)
+
+    def build(self,input_shape):
+        self.W=self.add_weight(name="att_weight",shape=(input_shape[-1],1),initializer="normal")
+        self.b=self.add_weight(name="att_bias",shape=(input_shape[1],1),initializer="zeros")        
+        super(attention, self).build(input_shape)
+
+    def call(self,x):
+        et=K.squeeze(K.tanh(K.dot(x,self.W)+self.b),axis=-1)
+        at=K.softmax(et)
+        at=K.expand_dims(at,axis=-1)
+        output=x*at
+        return K.sum(output,axis=1)
+
+    def compute_output_shape(self,input_shape):
+        return (input_shape[0],input_shape[-1])
+
+    def get_config(self):
+        return super(attention,self).get_config()
 
 def predict(data):
     
@@ -129,7 +153,7 @@ def predict(data):
 
   # Predict the data
   # Load saved model
-  model=load_model(config.OUTPUT_MODEL_PATH)
+  model=load_model(config.OUTPUT_MODEL_PATH, custom_objects={'attention': attention})
   # Predict the results
   prediction=model.predict([X_nlp, X_nonnlp])
   prediction=np.argmax(prediction, axis=1)
