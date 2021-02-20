@@ -41,7 +41,7 @@ def accident_alert_v2():
  
     # Prediction & Response
     prediction=pp.predict(data)[0]    
-    response = 'Potential Accident Level: '+ config.TARGET_LEVEL[prediction] + ' that means: ' + config.TARGET_LEVEL_DESC[prediction]
+    response = 'Potential Accident Level: '+ config.TARGET_LEVEL[prediction] + ' that means: ' + config.TARGET_LEVEL_DESC[prediction] + '. Do you want to predict Potential Accident Level for another task or incident? If yes, please type start again'
     
     response={"fulfillmentText": response}
     return Response(json.dumps(response),  mimetype='application/json')
